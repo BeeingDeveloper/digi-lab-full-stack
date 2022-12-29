@@ -3,18 +3,18 @@ import axios from 'axios'
 const baseURL = 'https://digi-lab-backend.onrender.com/'
 
 // USER API
-export const createNewUser = async(credentials)=>{
+// export const createNewUser = async(credentials)=>{
 
-    // const uid = credentials.user_id;
-    try {
-        // const foundUser = await axios.get()
+//     // const uid = credentials.user_id;
+//     try {
+//         // const foundUser = await axios.get()
 
-        const res = await axios.post(`${baseURL}api/users/create`, {...credentials});
-        return await res.data;
-    } catch (error) {
-        return null;
-    }
-}
+//         const res = await axios.post(`${baseURL}api/users/create`, {...credentials});
+//         return await res.data;
+//     } catch (error) {
+//         return null;
+//     }
+// }
 
 
 // EMAIL API
