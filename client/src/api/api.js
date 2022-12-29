@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:5800/'
+const baseURL = 'https://digi-lab-backend.onrender.com/'
 
 // USER API
 export const createNewUser = async(credentials)=>{
