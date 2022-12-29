@@ -145,7 +145,6 @@ const AdminPage = () => {
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [imageUploadingProgress, setImageUploadingProgress] = useState(0);
 
-    const navigate = useNavigate();
 
     const updateNewHeading = (objectID)=>{
         const newUiData = {
@@ -185,7 +184,6 @@ const AdminPage = () => {
         });
         
         setHeadingInput('')
-        navigate('/');
         setActiveAlert(true);
         setIsPositive(true);
         setAlertData("Image updated successfully")

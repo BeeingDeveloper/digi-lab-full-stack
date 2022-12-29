@@ -27,7 +27,7 @@ const Navbar = () => {
     <div className='h-24 w-full z-50 '>
         <div className=' h-24 w-screen bg-white transition-all ease-in duration-200 ' >
             <div className='w-[80%] h-full m-auto flex justify-between items-center'>
-                <div className='flex  my-[20px] gap-2 cursor-pointer'>
+                <motion.div whileHover={{scale: 1.1}} className='flex  my-[20px] gap-2 cursor-pointer'>
                     <div className=' logo'>
                         <div className='logo-c1'>
                             <div className='logo-c2'>
@@ -40,7 +40,7 @@ const Navbar = () => {
                     <Link to='/'>
                       <h2 className=' font-bold text-xl relative bottom-[2px]'>opus</h2>
                     </Link>
-                </div>
+                </motion.div>
 
                 <ul  className='hidden  lg:flex gap-12 text-slate-500 font-semibold'>
                     <li className=' transition-all ease-in-out duration-200 hover:scale-75 cursor-pointer'>Overview</li>
