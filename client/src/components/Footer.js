@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import '../utils/style.css';
 import {motion} from 'framer-motion'
 import { StateContext } from '../context/StateProvider';
-import { sendEmail } from '../api/api';
+import { fetchAllEmail, sendEmail } from '../api/api';
 import { actionType } from '../context/reducer';
 
 const Footer = () => {
@@ -62,8 +62,6 @@ const Footer = () => {
         }else{
             setIsWarning(false);
         }
-
-
     }
 
 
@@ -76,14 +74,19 @@ const Footer = () => {
                 email: emailInput
             }
             sendEmail(newEmail).then((res)=>{
-                dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
-            })
+                fetchAllEmail().then((result)=>{
+                    dispatch({type: actionType.SET_ALL_EMAIL, emails: result.data});
+                });
+            });
+
             setActiveAlert(true);
             setIsPositive(true);
             setAlertData("Email has been sent")
             setTimeout(()=>{
                 setActiveAlert(false);
-            },3500)
+            },3500);
+
+
         }else{
             setIsWarning(true);
             setActiveAlert(true);

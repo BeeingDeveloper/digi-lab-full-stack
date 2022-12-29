@@ -127,7 +127,15 @@ const AdminPage = () => {
     const {state, dispatch, setActiveAlert, setIsPositive, setAlertData} = useContext(StateContext);
     const {uiData, emails} = state;
 
+    useEffect(()=>{
+        fetchAllEmail().then((res)=>{
+            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
+        });
 
+        fetchUiData().then((res)=>{
+            dispatch({type: actionType.SET_UI_DATA, uiData: res.data});
+        });
+    },[])
 
     const objectID = uiData? uiData[0]._id : "63ac65bbbf6906e8abffa496";
 
@@ -138,6 +146,8 @@ const AdminPage = () => {
 
     const navigate = useNavigate();
 
+
+    // UPDATE IMAGE AND FETCH LATEST INFORMATION
     const updateNewHeading = (objectID)=>{
         if(headingInput){
             const newUiData = {
@@ -161,6 +171,7 @@ const AdminPage = () => {
             setTimeout(()=>{
                 setAlertData("")
             },3600);
+
         }else{
 
             setActiveAlert(true);
@@ -173,16 +184,10 @@ const AdminPage = () => {
                 setAlertData("")
             },3600);
         }
-
-    
-
-
-        
-
-    
-
     }
 
+
+    // UPDATE IMAGE AND FETCH LATEST INFORMATION
     const updateImage = (objectID)=>{
 
         if(manIMG){
@@ -196,8 +201,6 @@ const AdminPage = () => {
                 navigate('/');
             })
     
-
-            
             setActiveAlert(true);
             setIsPositive(true);
             setAlertData("Image updated successfully")
@@ -207,6 +210,7 @@ const AdminPage = () => {
             setTimeout(()=>{
                 setAlertData("")
             },3600);
+
         }else{
             setActiveAlert(true);
             setIsPositive(false);
@@ -222,8 +226,6 @@ const AdminPage = () => {
 
     }
 
-
-
     const deleteEmail =(id)=>{
         deleteEmailById(id).then((data)=>{
             fetchAllEmail().then((res)=>{
@@ -234,15 +236,7 @@ const AdminPage = () => {
 
 
 
-    useEffect(()=>{
-        fetchAllEmail().then((res)=>{
-            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
-        });
 
-        fetchUiData().then((res)=>{
-            dispatch({type: actionType.SET_UI_DATA, uiData: res.data});
-        });
-    },[])
 
 
     return (
