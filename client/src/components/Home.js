@@ -29,11 +29,12 @@ const Home = () => {
 
     const {state, dispatch} = useContext(StateContext);
     
-    const {user, uiData, emails} = state;
+    const { uiData, emails} = state;
 
     useEffect(()=>{
         fetchUiData().then((res)=>{
             dispatch({type: actionType.SET_UI_DATA, uiData: res.data})
+            console.log(res.data)
         });
 
     },[])

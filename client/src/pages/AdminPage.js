@@ -161,7 +161,6 @@ const AdminPage = () => {
         });
         
         setHeadingInput('')
-        navigate('/');
         setActiveAlert(true);
         setIsPositive(true);
         setAlertData("Heading updated successfully");
