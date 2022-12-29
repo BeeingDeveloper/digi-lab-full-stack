@@ -8,7 +8,6 @@ import StateProvider from './context/StateProvider';
 import AdminPage from './pages/AdminPage';
 import CustomAlert from './components/CustomAlert';
 
-console.log(auth);
 function App() {
   return (
     <StateProvider>

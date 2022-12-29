@@ -34,9 +34,7 @@ const Home = () => {
     useEffect(()=>{
         fetchUiData().then((res)=>{
             dispatch({type: actionType.SET_UI_DATA, uiData: res.data})
-            console.log(res.data)
         });
-
     },[])
 
   return (

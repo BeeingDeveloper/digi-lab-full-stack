@@ -36,7 +36,6 @@ const ImageInput = ({manIMG, setManIMG, setIsImageLoading, setImageUploadingProg
     const {state, dispatch} = useContext(StateContext);
     const {uiData, emails} = state;
 
-
     useEffect(()=>{
         fetchAllEmail().then((res)=>{
             dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
@@ -86,6 +85,7 @@ const ImageInput = ({manIMG, setManIMG, setIsImageLoading, setImageUploadingProg
 
 
 
+
     return(
         <div className='flex flex-col items-center justify-center h-full'>
             {!manIMG ? (
@@ -128,15 +128,6 @@ const AdminPage = () => {
     const {uiData, emails} = state;
 
 
-    useEffect(()=>{
-        fetchAllEmail().then((res)=>{
-            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
-        });
-
-        fetchUiData().then((res)=>{
-            dispatch({type: actionType.SET_UI_DATA, uiData: res.data});
-        });
-    },[])
 
     const objectID = uiData? uiData[0]._id : "63ac65bbbf6906e8abffa496";
 
@@ -145,54 +136,90 @@ const AdminPage = () => {
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [imageUploadingProgress, setImageUploadingProgress] = useState(0);
 
+    const navigate = useNavigate();
 
     const updateNewHeading = (objectID)=>{
-        const newUiData = {
-            heading: headingInput
+        if(headingInput){
+            const newUiData = {
+                heading: headingInput
+            }
+    
+            updateUiData(objectID, newUiData).then((res)=>{
+                fetchAllEmail().then((res)=>{
+                    dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
+                });
+                navigate('/');
+            });
+
+            setHeadingInput('');
+            setActiveAlert(true);
+            setIsPositive(true);
+            setAlertData("Heading updated successfully");
+            setTimeout(()=>{
+                setActiveAlert(false);
+            },3500)
+            setTimeout(()=>{
+                setAlertData("")
+            },3600);
+        }else{
+
+            setActiveAlert(true);
+            setIsPositive(false);
+            setAlertData("Please enter a proper heading");
+            setTimeout(()=>{
+                setActiveAlert(false);
+            },3500)
+            setTimeout(()=>{
+                setAlertData("")
+            },3600);
         }
 
-        updateUiData(objectID, newUiData).then((res)=>{
-            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.emails});
-        })
+    
 
-        fetchAllEmail().then((res)=>{
-            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
-        });
+
         
-        setHeadingInput('')
-        setActiveAlert(true);
-        setIsPositive(true);
-        setAlertData("Heading updated successfully");
-        setTimeout(()=>{
-            setActiveAlert(false);
-        },3500)
-        setTimeout(()=>{
-            setAlertData("")
-        },3600);
+
+    
+
     }
 
     const updateImage = (objectID)=>{
-        const newImage = {
-            imageURL: manIMG
-        }
-        updateUiData(objectID, newImage).then((res)=>{
-            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.emails});
-        })
 
-        fetchAllEmail().then((res)=>{
-            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
-        });
-        
-        setHeadingInput('')
-        setActiveAlert(true);
-        setIsPositive(true);
-        setAlertData("Image updated successfully")
-        setTimeout(()=>{
-            setActiveAlert(false);
-        },3500);
-        setTimeout(()=>{
-            setAlertData("")
-        },3600);
+        if(manIMG){
+            const newImage = {
+                imageURL: manIMG
+            }
+            updateUiData(objectID, newImage).then((res)=>{
+                fetchAllEmail().then((res)=>{
+                    dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
+                });
+                navigate('/');
+            })
+    
+
+            
+            setActiveAlert(true);
+            setIsPositive(true);
+            setAlertData("Image updated successfully")
+            setTimeout(()=>{
+                setActiveAlert(false);
+            },3500);
+            setTimeout(()=>{
+                setAlertData("")
+            },3600);
+        }else{
+            setActiveAlert(true);
+            setIsPositive(false);
+            setAlertData("This is not a valid Image");
+            setTimeout(()=>{
+                setActiveAlert(false);
+            },3500);
+            setTimeout(()=>{
+                setAlertData("")
+            },3600);
+        }
+
+
     }
 
 
@@ -206,6 +233,16 @@ const AdminPage = () => {
     }
 
 
+
+    useEffect(()=>{
+        fetchAllEmail().then((res)=>{
+            dispatch({type: actionType.SET_ALL_EMAIL, emails: res.data});
+        });
+
+        fetchUiData().then((res)=>{
+            dispatch({type: actionType.SET_UI_DATA, uiData: res.data});
+        });
+    },[])
 
 
     return (
